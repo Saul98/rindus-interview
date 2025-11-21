@@ -8,7 +8,6 @@ import com.rindus.app.domain.ports.UserRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import java.time.Clock;
 
 /**
  * Use case for creating a new User.
@@ -16,19 +15,16 @@ import java.time.Clock;
 @ApplicationScoped
 public class CreateUserUseCase {
 
-  private final Clock clock;
-
   private final UserRepository userRepository;
 
   @Inject
-  public CreateUserUseCase(Clock clock, UserRepository userRepository) {
-    this.clock = clock;
+  public CreateUserUseCase(UserRepository userRepository) {
     this.userRepository = userRepository;
   }
 
   @Transactional
   public CreateUserResult execute(CreateUserCommand cmd) {
-    User user = User.create(cmd.name(), cmd.email(), clock.instant());
+    User user = User.create(cmd.name(), cmd.email());
 
     if (userRepository.existsByEmail(user.getEmail())) {
       throw new UserAlreadyExistsException(user.getEmail());
