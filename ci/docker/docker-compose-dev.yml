@@ -1,21 +1,24 @@
-version: '3.8'
+version: "3.8"
+
 services:
-  postgres:
-    build:
-      context: ../../docker/postgres
-    container_name: rindus_postgres
+  db:
+    image: postgres:15
+    container_name: users-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: usersdb
     ports:
       - "5432:5432"
-    environment:
-      POSTGRES_DB: appdb
-      POSTGRES_USER: app
-      POSTGRES_PASSWORD: app
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql/data
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U app -d appdb"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-usersdb}"]
       interval: 10s
       timeout: 5s
       retries: 5
+
 volumes:
-  pgdata:
+  db-data:
+
