@@ -1,3 +1,65 @@
-/.idea
-**/.idea
-**/target
+###############################################
+# Global ignores
+###############################################
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editors/temporary files
+*.swp
+*.swo
+*.tmp
+*.bak
+
+# Logs
+logs/
+*.log
+*.log.*
+hs_err_pid*
+replay_pid*
+
+# Env files
+.env
+.env.*
+
+###############################################
+# Java / Maven / Quarkus
+###############################################
+
+# Maven build outputs
+target/
+**/target/
+dependency-reduced-pom.xml
+
+# Quarkus dev mode cache
+.quarkus/
+
+# Coverage
+jacoco.exec
+.jacoco/
+coverage/
+
+###############################################
+# IDEs
+###############################################
+
+# IntelliJ IDEA
+.idea/
+**/.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Eclipse
+.project
+.classpath
+.settings/
+.factorypath
+bin/
+
+# VS Code
+.vscode/
