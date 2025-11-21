@@ -1,5 +1,6 @@
 package com.rindus.app.infrastructure.entrypoint.rest.exception;
 
+import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.Response;
@@ -18,7 +19,7 @@ public class ConstraintViolationExceptionMapper implements ExceptionMapper<Const
   public Response toResponse(ConstraintViolationException ex) {
     String message = ex.getConstraintViolations()
         .stream()
-        .map(v -> v.getPropertyPath() + " " + v.getMessage())
+        .map(ConstraintViolation::getMessage)
         .findFirst()
         .orElse("Validation failed");
 

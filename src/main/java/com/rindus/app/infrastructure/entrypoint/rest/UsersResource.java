@@ -6,6 +6,7 @@ import com.rindus.app.application.usecase.CreateUserUseCase;
 import com.rindus.app.application.usecase.GetUserUseCase;
 import com.rindus.app.infrastructure.entrypoint.rest.dto.request.CreateUserPayload;
 import com.rindus.app.infrastructure.entrypoint.rest.dto.response.UserResponseDto;
+import com.rindus.app.infrastructure.entrypoint.rest.exception.ErrorResponseSchema;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -22,6 +23,9 @@ import jakarta.ws.rs.core.UriInfo;
 import java.net.URI;
 import java.util.UUID;
 import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 /**
@@ -45,6 +49,11 @@ public class UsersResource {
 
   @POST
   @Operation(summary = "Create a new user", description = "Creates a user using name and email.")
+  @APIResponse(responseCode = "201", description = "User created")
+  @APIResponse(responseCode = "400", description = "Bad request",
+      content = @Content(schema = @Schema(implementation = ErrorResponseSchema.class)))
+  @APIResponse(responseCode = "409", description = "User already exists",
+      content = @Content(schema = @Schema(implementation = ErrorResponseSchema.class)))
   public Response create(@Valid CreateUserPayload payload, @Context UriInfo uriInfo) {
     CreateUserCommand cmd = new CreateUserCommand(payload.name(), payload.email());
     CreateUserResult result = createUserUseCase.execute(cmd);
@@ -64,6 +73,9 @@ public class UsersResource {
   @Path("/{id}")
   @Operation(summary = "Get a user by ID",
       description = "Returns the user associated with the given UUID.")
+  @APIResponse(responseCode = "200", description = "User found")
+  @APIResponse(responseCode = "404", description = "User not found",
+      content = @Content(schema = @Schema(implementation = ErrorResponseSchema.class)))
   public Response get(@PathParam("id") UUID id) {
     return getUserUseCase.execute(id)
         .map(UserResponseDto::from)

@@ -5,8 +5,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.Instant;
@@ -20,14 +18,13 @@ import java.util.UUID;
 public class UserEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
-  @Column(name = "id", nullable = false, updatable = false, length = 40)
+  @Column(name = "user_id", nullable = false, updatable = false)
   public UUID id;
 
-  @Column(name = "name", nullable = false, length = 255)
+  @Column(name = "name", nullable = false)
   public String name;
 
-  @Column(name = "email", nullable = false, length = 255, unique = true)
+  @Column(name = "email", nullable = false, unique = true)
   public String email;
 
   @Enumerated(EnumType.STRING)
