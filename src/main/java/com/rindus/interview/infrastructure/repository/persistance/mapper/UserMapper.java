@@ -4,51 +4,58 @@ import com.rindus.interview.domain.aggregate.User;
 import com.rindus.interview.domain.valueobject.Email;
 import com.rindus.interview.domain.valueobject.UserId;
 import com.rindus.interview.infrastructure.repository.persistance.entity.UserEntity;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
+import java.util.UUID;
 
 /**
  * Mapper for converting between {@link User} and {@link UserEntity}.
  */
-public final class UserMapper {
+@Mapper
+public interface UserMapper {
 
-  private UserMapper() {
-    // utility class
-  }
+  /**
+   * Maps a domain User aggregate to its persistence entity.
+   */
+  @Mapping(target = "version", ignore = true)
+  UserEntity toEntity(User user);
 
-  public static UserEntity toEntity(User user) {
-    if (user == null) {
-      return null;
-    }
-
-    UserEntity entity = new UserEntity();
-    entity.setId(user.getId().getValue());
-    entity.setName(user.getName());
-    entity.setEmail(user.getEmail().getValue());
-    entity.setStatus(user.getStatus());
-    entity.setEmailVerified(user.isEmailVerified());
-    entity.setEmailVerifiedAt(user.getEmailVerifiedAt());
-    entity.setCreatedAt(user.getCreatedAt());
-    entity.setUpdatedAt(user.getUpdatedAt());
-
-    return entity;
-  }
-
-  public static User toDomain(UserEntity entity) {
+  /**
+   * Maps a persistence entity to its domain User aggregate.
+   */
+  default User toDomain(UserEntity entity) {
     if (entity == null) {
       return null;
     }
 
-    UserId id = entity.getId() != null ? UserId.from(entity.getId()) : UserId.newId();
-    Email email = entity.getEmail() != null ? Email.of(entity.getEmail()) : null;
+    UserId id = map(entity.getId());
+    Email email = map(entity.getEmail());
 
     return User.fromPersistence(
-        id,
-        entity.getName(),
-        email,
-        entity.getStatus(),
-        entity.isEmailVerified(),
-        entity.getEmailVerifiedAt(),
-        entity.getCreatedAt(),
-        entity.getUpdatedAt()
-    );
+      id,
+      entity.getName(),
+      email,
+      entity.getStatus(),
+      entity.isEmailVerified(),
+      entity.getEmailVerifiedAt(),
+      entity.getCreatedAt(),
+      entity.getUpdatedAt());
+  }
+
+  default UUID map(UserId id) {
+    return id == null ? null : id.getValue();
+  }
+
+  default UserId map(UUID id) {
+    return id == null ? UserId.newId() : UserId.from(id);
+  }
+
+  default String map(Email email) {
+    return email == null ? null : email.getValue();
+  }
+
+  default Email map(String email) {
+    return email == null ? null : Email.of(email);
   }
 }

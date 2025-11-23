@@ -10,5 +10,4 @@ import java.util.UUID;
  * @param email
  */
 public record CreateUserResult(UUID id, String name, String email) {
-
 }

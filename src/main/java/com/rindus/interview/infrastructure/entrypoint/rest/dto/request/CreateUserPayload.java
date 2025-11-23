@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotBlank;
  * @param name
  * @param email
  */
-public record CreateUserPayload(@NotBlank(message = "Name is required") String name,
-                                @NotBlank @Email(message = "Email must be valid") String email) {
-
+public record CreateUserPayload(
+  @NotBlank(message = "Name is required") String name,
+  @NotBlank @Email(message = "Email must be valid") String email) {
 }

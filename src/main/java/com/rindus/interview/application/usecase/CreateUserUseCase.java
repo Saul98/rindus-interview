@@ -16,8 +16,8 @@ import org.jboss.logging.Logger;
 @ApplicationScoped
 public class CreateUserUseCase {
 
-  private final UserRepository userRepository;
   private static final Logger LOG = Logger.getLogger(CreateUserUseCase.class);
+  private final UserRepository userRepository;
 
   @Inject
   public CreateUserUseCase(UserRepository userRepository) {
@@ -37,6 +37,7 @@ public class CreateUserUseCase {
     User saved = userRepository.save(user);
 
     LOG.infof("User created successfully with id=%s", saved.getId().getValue());
-    return new CreateUserResult(saved.getId().getValue(), saved.getName(), saved.getEmail().getValue());
+    return new CreateUserResult(
+      saved.getId().getValue(), saved.getName(), saved.getEmail().getValue());
   }
 }

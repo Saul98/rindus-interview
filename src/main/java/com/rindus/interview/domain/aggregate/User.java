@@ -6,6 +6,7 @@ import com.rindus.interview.domain.exception.UserIsNotVerifiedException;
 import com.rindus.interview.domain.exception.UserParameterIsRequired;
 import com.rindus.interview.domain.valueobject.Email;
 import com.rindus.interview.domain.valueobject.UserId;
+
 import java.time.Instant;
 import java.util.Objects;
 
@@ -15,26 +16,23 @@ import java.util.Objects;
 public class User {
 
   private final UserId id;
-
+  private final Instant createdAt;
   private String name;
   private Email email;
-
   private UserStatus status;
-
   private boolean emailVerified;
   private Instant emailVerifiedAt;
-
-  private final Instant createdAt;
   private Instant updatedAt;
 
-  protected User(UserId id,
-      String name,
-      Email email,
-      UserStatus status,
-      boolean emailVerified,
-      Instant emailVerifiedAt,
-      Instant createdAt,
-      Instant updatedAt) {
+  protected User(
+    UserId id,
+    String name,
+    Email email,
+    UserStatus status,
+    boolean emailVerified,
+    Instant emailVerifiedAt,
+    Instant createdAt,
+    Instant updatedAt) {
     this.id = Objects.requireNonNull(id, "id is required");
     this.name = normalizeAndValidateName(name);
     this.email = Objects.requireNonNull(email, "email is required");
@@ -50,37 +48,27 @@ public class User {
    * Factory method used to reconstitute a User aggregate from persistence.
    */
   public static User fromPersistence(
-      UserId id,
-      String name,
-      Email email,
-      UserStatus status,
-      boolean emailVerified,
-      Instant emailVerifiedAt,
-      Instant createdAt,
-      Instant updatedAt) {
-    return new User(
-        id,
-        name,
-        email,
-        status,
-        emailVerified,
-        emailVerifiedAt,
-        createdAt,
-        updatedAt
-    );
+    UserId id,
+    String name,
+    Email email,
+    UserStatus status,
+    boolean emailVerified,
+    Instant emailVerifiedAt,
+    Instant createdAt,
+    Instant updatedAt) {
+    return new User(id, name, email, status, emailVerified, emailVerifiedAt, createdAt, updatedAt);
   }
 
   public static User create(String name, String email) {
     return new User(
-        UserId.newId(),
-        name,
-        Email.of(email),
-        UserStatus.PENDING_VERIFICATION,
-        false,
-        null,
-        Instant.now(),
-        null
-    );
+      UserId.newId(),
+      name,
+      Email.of(email),
+      UserStatus.PENDING_VERIFICATION,
+      false,
+      null,
+      Instant.now(),
+      null);
   }
 
   public void rename(String newName) {
@@ -145,7 +133,7 @@ public class User {
 
   private String normalizeAndValidateName(String rawName) {
     if (rawName == null) {
-      throw new UserParameterIsRequired( getId(), "Name is required");
+      throw new UserParameterIsRequired(getId(), "Name is required");
     }
 
     String normalizedName = rawName.trim();

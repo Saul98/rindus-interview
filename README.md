@@ -7,11 +7,12 @@ Key capabilities
 - Retrieve a user by ID
 
 Tech stack
-- Java 17
+- Java 21
 - Quarkus
 - Maven
 - JAX‑RS (REST), Bean Validation
 - JPA/Hibernate with Panache
+- MapStruct for compile-time mappings between domain and JPA entities
 - PostgreSQL (dev), Dev Services PostgreSQL (tests)
 - OpenAPI/Swagger UI, Health checks, Metrics
 
@@ -22,6 +23,7 @@ Architecture overview
   - Infrastructure: adapters (REST, persistence via Panache/JPA)
 - UserRepository is a domain port implemented by a Panache adapter
 - DDD inspiration: simple User aggregate with basic invariants and validation
+ - MapStruct generates the mapper to translate Domain <-> JPA entity (User <-> UserEntity)
 
 Project layout (important packages)
 - com.rindus.interview.domain: aggregate, events, and repository port
@@ -67,7 +69,7 @@ OpenAPI, health, and metrics
 
 Quickstart
 Prerequisites
-- Java 17
+- Java 21
 - Maven 3.8+
 - Docker (to run PostgreSQL locally)
 
@@ -107,7 +109,7 @@ Build and run as a JAR
 
 Containerization (optional, not required to run tests)
 - A minimal Dockerfile for the fast-jar runner could look like:
-    FROM eclipse-temurin:17-jre
+    FROM eclipse-temurin:21-jre
     WORKDIR /app
     COPY target/quarkus-app/ /app/
     ENV JAVA_OPTS="-XX:MaxRAMPercentage=75.0"

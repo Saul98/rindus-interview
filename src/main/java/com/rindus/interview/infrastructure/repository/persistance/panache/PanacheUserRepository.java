@@ -9,6 +9,8 @@ import com.rindus.interview.infrastructure.repository.persistance.mapper.UserMap
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
+import org.mapstruct.factory.Mappers;
+
 import java.util.Optional;
 import java.util.UUID;
 
@@ -16,19 +18,22 @@ import java.util.UUID;
  * Panache implementation of UserRepository.
  */
 @ApplicationScoped
-public class PanacheUserRepository implements UserRepository, PanacheRepositoryBase<UserEntity, UUID> {
+public class PanacheUserRepository
+  implements UserRepository, PanacheRepositoryBase<UserEntity, UUID> {
+
+  private static final UserMapper MAPPER = Mappers.getMapper(UserMapper.class);
 
   @Override
   @Transactional
   public User save(User user) {
-    UserEntity entity = UserMapper.toEntity(user);
+    UserEntity entity = MAPPER.toEntity(user);
     persist(entity);
     return user;
   }
 
   @Override
   public Optional<User> findById(UserId id) {
-    return findByIdOptional(id.getValue()).map(UserMapper::toDomain);
+    return findByIdOptional(id.getValue()).map(MAPPER::toDomain);
   }
 
   @Override

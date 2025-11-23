@@ -1,17 +1,13 @@
 package com.rindus.interview.infrastructure.repository.persistance.entity;
 
 import com.rindus.interview.domain.enums.UserStatus;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.time.Instant;
 import java.util.UUID;
 
 /**
- * Persistence entity for User, using Panache.
+ * Persistence entity for User.
  */
 @Entity
 @Table(name = "users")
@@ -19,29 +15,33 @@ public class UserEntity {
 
   @Id
   @Column(name = "user_id", nullable = false, updatable = false)
-  public UUID id;
+  private UUID id;
 
   @Column(name = "name", nullable = false)
-  public String name;
+  private String name;
 
   @Column(name = "email", nullable = false, unique = true)
-  public String email;
+  private String email;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "status", nullable = false, length = 50)
-  public UserStatus status;
+  private UserStatus status;
 
   @Column(name = "email_verified", nullable = false)
-  public boolean emailVerified;
+  private boolean emailVerified;
 
   @Column(name = "email_verified_at")
-  public Instant emailVerifiedAt;
+  private Instant emailVerifiedAt;
 
   @Column(name = "created_at", nullable = false, updatable = false)
-  public Instant createdAt;
+  private Instant createdAt;
 
   @Column(name = "updated_at")
-  public Instant updatedAt;
+  private Instant updatedAt;
+
+  @Version
+  @Column(name = "version", nullable = false)
+  private long version;
 
   public UUID getId() {
     return id;
@@ -105,5 +105,13 @@ public class UserEntity {
 
   public void setUpdatedAt(Instant updatedAt) {
     this.updatedAt = updatedAt;
+  }
+
+  public long getVersion() {
+    return version;
+  }
+
+  public void setVersion(long version) {
+    this.version = version;
   }
 }

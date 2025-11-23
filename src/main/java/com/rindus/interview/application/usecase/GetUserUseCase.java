@@ -6,9 +6,10 @@ import com.rindus.interview.domain.ports.UserRepository;
 import com.rindus.interview.domain.valueobject.UserId;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import org.jboss.logging.Logger;
+
 import java.util.Optional;
 import java.util.UUID;
-import org.jboss.logging.Logger;
 
 /**
  * Use case for retrieving a User by its id.
@@ -39,10 +40,6 @@ public class GetUserUseCase {
   }
 
   private GetUserResult toResult(User user) {
-    return new GetUserResult(
-        user.getId().getValue(),
-        user.getName(),
-        user.getEmail().getValue()
-    );
+    return new GetUserResult(user.getId().getValue(), user.getName(), user.getEmail().getValue());
   }
 }

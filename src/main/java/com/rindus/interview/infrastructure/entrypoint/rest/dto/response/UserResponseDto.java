@@ -10,11 +10,7 @@ import com.rindus.interview.application.dto.result.GetUserResult;
  * @param name
  * @param email
  */
-public record UserResponseDto(
-    String id,
-    String name,
-    String email
-) {
+public record UserResponseDto(String id, String name, String email) {
 
   public static UserResponseDto from(CreateUserResult result) {
     return new UserResponseDto(result.id().toString(), result.name(), result.email());

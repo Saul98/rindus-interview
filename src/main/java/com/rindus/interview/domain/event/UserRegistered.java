@@ -1,6 +1,7 @@
 package com.rindus.interview.domain.event;
 
 import com.rindus.interview.domain.valueobject.UserId;
+
 import java.time.Instant;
 
 /**
@@ -10,6 +11,6 @@ import java.time.Instant;
  * @param email
  * @param occurredAt
  */
-public record UserRegistered(UserId userId, String email, Instant occurredAt) implements UserDomainEvent {
-
+public record UserRegistered(UserId userId, String email, Instant occurredAt)
+  implements UserDomainEvent {
 }
