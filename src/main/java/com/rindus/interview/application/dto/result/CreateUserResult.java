@@ -9,5 +9,4 @@ import java.util.UUID;
  * @param name
  * @param email
  */
-public record CreateUserResult(UUID id, String name, String email) {
-}
+public record CreateUserResult(UUID id, String name, String email) {}

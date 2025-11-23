@@ -1,33 +1,28 @@
 package com.rindus.interview.application.usecase;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import com.rindus.interview.application.dto.result.GetUserResult;
 import com.rindus.interview.domain.aggregate.User;
 import com.rindus.interview.infrastructure.repository.persistance.panache.PanacheUserRepository;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import java.util.Optional;
+import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
-import java.util.UUID;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-/**
- * Integration test for: {@link GetUserUseCase}.
- */
+/** Integration test for: {@link GetUserUseCase}. */
 @QuarkusTest
 @Transactional
 class GetUserUseCaseIT {
 
-  @Inject
-  GetUserUseCase useCase;
+  @Inject GetUserUseCase useCase;
 
-  @Inject
-  PanacheUserRepository userRepository;
+  @Inject PanacheUserRepository userRepository;
 
   @BeforeEach
   void cleanDatabase() {

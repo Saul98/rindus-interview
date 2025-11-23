@@ -1,13 +1,10 @@
 package com.rindus.interview.domain.valueobject;
 
 import com.rindus.interview.domain.exception.UserParameterIsRequired;
-
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-/**
- * Value object representing a User's email address.
- */
+/** Value object representing a User's email address. */
 public class Email {
 
   private static final Pattern EMAIL_PATTERN = Pattern.compile("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$");

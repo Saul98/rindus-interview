@@ -3,9 +3,7 @@ package com.rindus.interview.domain.valueobject;
 import java.util.Objects;
 import java.util.UUID;
 
-/**
- * Value object representing a User's unique identifier.
- */
+/** Value object representing a User's unique identifier. */
 public final class UserId {
 
   private final UUID value;

@@ -4,15 +4,13 @@ import com.rindus.interview.application.dto.command.CreateUserCommand;
 import com.rindus.interview.application.dto.result.CreateUserResult;
 import com.rindus.interview.application.exception.UserAlreadyExistsException;
 import com.rindus.interview.domain.aggregate.User;
-import com.rindus.interview.domain.ports.UserRepository;
+import com.rindus.interview.domain.port.UserRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.jboss.logging.Logger;
 
-/**
- * Use case for creating a new User.
- */
+/** Use case for creating a new User. */
 @ApplicationScoped
 public class CreateUserUseCase {
 
@@ -38,6 +36,6 @@ public class CreateUserUseCase {
 
     LOG.infof("User created successfully with id=%s", saved.getId().getValue());
     return new CreateUserResult(
-      saved.getId().getValue(), saved.getName(), saved.getEmail().getValue());
+        saved.getId().getValue(), saved.getName(), saved.getEmail().getValue());
   }
 }

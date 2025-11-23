@@ -1,8 +1,6 @@
 package com.rindus.interview.domain.enums;
 
-/**
- * Enum representing the status of a User.
- */
+/** Enum representing the status of a User. */
 public enum UserStatus {
   PENDING_VERIFICATION,
   ACTIVE,

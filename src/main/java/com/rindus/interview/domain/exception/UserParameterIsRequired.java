@@ -2,9 +2,7 @@ package com.rindus.interview.domain.exception;
 
 import com.rindus.interview.domain.valueobject.UserId;
 
-/**
- * Exception indicating that a required parameter is missing.
- */
+/** Exception indicating that a required parameter is missing. */
 public class UserParameterIsRequired extends DomainException {
 
   public UserParameterIsRequired(UserId id, String message) {

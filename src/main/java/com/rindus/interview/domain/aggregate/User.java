@@ -6,13 +6,10 @@ import com.rindus.interview.domain.exception.UserIsNotVerifiedException;
 import com.rindus.interview.domain.exception.UserParameterIsRequired;
 import com.rindus.interview.domain.valueobject.Email;
 import com.rindus.interview.domain.valueobject.UserId;
-
 import java.time.Instant;
 import java.util.Objects;
 
-/**
- * Aggregate root representing a User in the domain.
- */
+/** Aggregate root representing a User in the domain. */
 public class User {
 
   private final UserId id;
@@ -25,14 +22,14 @@ public class User {
   private Instant updatedAt;
 
   protected User(
-    UserId id,
-    String name,
-    Email email,
-    UserStatus status,
-    boolean emailVerified,
-    Instant emailVerifiedAt,
-    Instant createdAt,
-    Instant updatedAt) {
+      UserId id,
+      String name,
+      Email email,
+      UserStatus status,
+      boolean emailVerified,
+      Instant emailVerifiedAt,
+      Instant createdAt,
+      Instant updatedAt) {
     this.id = Objects.requireNonNull(id, "id is required");
     this.name = normalizeAndValidateName(name);
     this.email = Objects.requireNonNull(email, "email is required");
@@ -44,31 +41,29 @@ public class User {
     this.updatedAt = updatedAt;
   }
 
-  /**
-   * Factory method used to reconstitute a User aggregate from persistence.
-   */
+  /** Factory method used to reconstitute a User aggregate from persistence. */
   public static User fromPersistence(
-    UserId id,
-    String name,
-    Email email,
-    UserStatus status,
-    boolean emailVerified,
-    Instant emailVerifiedAt,
-    Instant createdAt,
-    Instant updatedAt) {
+      UserId id,
+      String name,
+      Email email,
+      UserStatus status,
+      boolean emailVerified,
+      Instant emailVerifiedAt,
+      Instant createdAt,
+      Instant updatedAt) {
     return new User(id, name, email, status, emailVerified, emailVerifiedAt, createdAt, updatedAt);
   }
 
   public static User create(String name, String email) {
     return new User(
-      UserId.newId(),
-      name,
-      Email.of(email),
-      UserStatus.PENDING_VERIFICATION,
-      false,
-      null,
-      Instant.now(),
-      null);
+        UserId.newId(),
+        name,
+        Email.of(email),
+        UserStatus.PENDING_VERIFICATION,
+        false,
+        null,
+        Instant.now(),
+        null);
   }
 
   public void rename(String newName) {

@@ -1,16 +1,25 @@
 package com.rindus.interview.domain.event;
 
+import com.rindus.interview.domain.valueobject.Email;
 import com.rindus.interview.domain.valueobject.UserId;
 
-import java.time.Instant;
+/** Event indicating that a User has been registered. */
+public class UserRegistered extends UserDomainEvent {
 
-/**
- * Event indicating that a User has been registered.
- *
- * @param userId
- * @param email
- * @param occurredAt
- */
-public record UserRegistered(UserId userId, String email, Instant occurredAt)
-  implements UserDomainEvent {
+  private final UserId userId;
+
+  private final Email email;
+
+  public UserRegistered(UserId userId, Email email) {
+    this.userId = userId;
+    this.email = email;
+  }
+
+  public UserId getUserId() {
+    return userId;
+  }
+
+  public Email getEmail() {
+    return email;
+  }
 }

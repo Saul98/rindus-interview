@@ -2,18 +2,15 @@ package com.rindus.interview.application.usecase;
 
 import com.rindus.interview.application.dto.result.GetUserResult;
 import com.rindus.interview.domain.aggregate.User;
-import com.rindus.interview.domain.ports.UserRepository;
+import com.rindus.interview.domain.port.UserRepository;
 import com.rindus.interview.domain.valueobject.UserId;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import org.jboss.logging.Logger;
-
 import java.util.Optional;
 import java.util.UUID;
+import org.jboss.logging.Logger;
 
-/**
- * Use case for retrieving a User by its id.
- */
+/** Use case for retrieving a User by its id. */
 @ApplicationScoped
 public class GetUserUseCase {
 

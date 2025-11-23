@@ -4,26 +4,19 @@ import com.rindus.interview.domain.aggregate.User;
 import com.rindus.interview.domain.valueobject.Email;
 import com.rindus.interview.domain.valueobject.UserId;
 import com.rindus.interview.infrastructure.repository.persistance.entity.UserEntity;
+import java.util.UUID;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import java.util.UUID;
-
-/**
- * Mapper for converting between {@link User} and {@link UserEntity}.
- */
+/** Mapper for converting between {@link User} and {@link UserEntity}. */
 @Mapper
 public interface UserMapper {
 
-  /**
-   * Maps a domain User aggregate to its persistence entity.
-   */
+  /** Maps a domain User aggregate to its persistence entity. */
   @Mapping(target = "version", ignore = true)
   UserEntity toEntity(User user);
 
-  /**
-   * Maps a persistence entity to its domain User aggregate.
-   */
+  /** Maps a persistence entity to its domain User aggregate. */
   default User toDomain(UserEntity entity) {
     if (entity == null) {
       return null;
@@ -33,14 +26,14 @@ public interface UserMapper {
     Email email = map(entity.getEmail());
 
     return User.fromPersistence(
-      id,
-      entity.getName(),
-      email,
-      entity.getStatus(),
-      entity.isEmailVerified(),
-      entity.getEmailVerifiedAt(),
-      entity.getCreatedAt(),
-      entity.getUpdatedAt());
+        id,
+        entity.getName(),
+        email,
+        entity.getStatus(),
+        entity.isEmailVerified(),
+        entity.getEmailVerifiedAt(),
+        entity.getCreatedAt(),
+        entity.getUpdatedAt());
   }
 
   default UUID map(UserId id) {

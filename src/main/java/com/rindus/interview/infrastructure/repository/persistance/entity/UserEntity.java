@@ -2,13 +2,10 @@ package com.rindus.interview.infrastructure.repository.persistance.entity;
 
 import com.rindus.interview.domain.enums.UserStatus;
 import jakarta.persistence.*;
-
 import java.time.Instant;
 import java.util.UUID;
 
-/**
- * Persistence entity for User.
- */
+/** Persistence entity for User. */
 @Entity
 @Table(name = "users")
 public class UserEntity {

@@ -1,15 +1,14 @@
 package com.rindus.interview.domain.aggregate;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import com.rindus.interview.domain.enums.UserStatus;
 import com.rindus.interview.domain.valueobject.Email;
 import com.rindus.interview.domain.valueobject.UserId;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import java.time.Instant;
 import java.util.UUID;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 @DisplayName("User aggregate fromPersistence behavior")
 class UserTest {
@@ -26,8 +25,8 @@ class UserTest {
     Instant createdAt = Instant.parse("2022-01-01T10:00:00Z");
     Instant updatedAt = Instant.parse("2022-01-01T11:00:00Z");
     User user =
-      User.fromPersistence(
-        userId, name, email, status, emailVerified, emailVerifiedAt, createdAt, updatedAt);
+        User.fromPersistence(
+            userId, name, email, status, emailVerified, emailVerifiedAt, createdAt, updatedAt);
     assertEquals(userId, user.getId());
     assertEquals(name, user.getName());
     assertEquals(email, user.getEmail());
@@ -49,10 +48,10 @@ class UserTest {
     Instant createdAt = Instant.now();
     Instant updatedAt = Instant.now();
     assertThrows(
-      NullPointerException.class,
-      () ->
-        User.fromPersistence(
-          null, name, email, status, emailVerified, emailVerifiedAt, createdAt, updatedAt));
+        NullPointerException.class,
+        () ->
+            User.fromPersistence(
+                null, name, email, status, emailVerified, emailVerifiedAt, createdAt, updatedAt));
   }
 
   @Test
@@ -66,10 +65,10 @@ class UserTest {
     Instant createdAt = Instant.now();
     Instant updatedAt = Instant.now();
     assertThrows(
-      NullPointerException.class,
-      () ->
-        User.fromPersistence(
-          userId, name, null, status, emailVerified, emailVerifiedAt, createdAt, updatedAt));
+        NullPointerException.class,
+        () ->
+            User.fromPersistence(
+                userId, name, null, status, emailVerified, emailVerifiedAt, createdAt, updatedAt));
   }
 
   @Test
@@ -84,8 +83,8 @@ class UserTest {
     Instant createdAt = Instant.now();
     Instant updatedAt = Instant.now();
     User user =
-      User.fromPersistence(
-        userId, name, email, status, emailVerified, emailVerifiedAt, createdAt, updatedAt);
+        User.fromPersistence(
+            userId, name, email, status, emailVerified, emailVerifiedAt, createdAt, updatedAt);
     assertEquals(UserStatus.PENDING_VERIFICATION, user.getStatus());
   }
 
@@ -100,9 +99,9 @@ class UserTest {
     Instant emailVerifiedAt = null;
     Instant updatedAt = Instant.now();
     assertThrows(
-      NullPointerException.class,
-      () ->
-        User.fromPersistence(
-          userId, name, email, status, emailVerified, emailVerifiedAt, null, updatedAt));
+        NullPointerException.class,
+        () ->
+            User.fromPersistence(
+                userId, name, email, status, emailVerified, emailVerifiedAt, null, updatedAt));
   }
 }

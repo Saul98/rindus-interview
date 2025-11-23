@@ -6,5 +6,4 @@ package com.rindus.interview.application.dto.command;
  * @param name
  * @param email
  */
-public record CreateUserCommand(String name, String email) {
-}
+public record CreateUserCommand(String name, String email) {}
