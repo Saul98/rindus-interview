@@ -1,4 +1,4 @@
-package com.rindus.interview.infrastructure.repository.persistance.entity;
+package com.rindus.interview.infrastructure.repository.persistence.entity;
 
 import com.rindus.interview.domain.enums.UserStatus;
 import jakarta.persistence.*;

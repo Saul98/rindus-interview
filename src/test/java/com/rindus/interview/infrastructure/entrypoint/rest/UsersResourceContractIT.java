@@ -3,7 +3,7 @@ package com.rindus.interview.infrastructure.entrypoint.rest;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
-import com.rindus.interview.infrastructure.repository.persistance.panache.PanacheUserRepository;
+import com.rindus.interview.infrastructure.repository.persistence.panache.PanacheUserRepository;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
@@ -163,7 +163,7 @@ class UsersResourceContractIT {
   }
 
   @Test
-  @DisplayName("GET /users/{id} - when id is not a UUID then 400 Bad Request with error schema")
+  @DisplayName("GET /users/{id} - when id is not a UUID then 404 Bad Request with error schema")
   void getUser_invalidUuid_returns400() {
     given()
         .when()

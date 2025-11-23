@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.rindus.interview.application.dto.result.GetUserResult;
 import com.rindus.interview.domain.aggregate.User;
-import com.rindus.interview.infrastructure.repository.persistance.panache.PanacheUserRepository;
+import com.rindus.interview.infrastructure.repository.persistence.panache.PanacheUserRepository;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;

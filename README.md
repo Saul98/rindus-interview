@@ -20,7 +20,7 @@ This repository contains a small **cloud-native microservice** for a Senior Back
 * JPA/Hibernate with Panache
 * MapStruct (compile-time domain ↔ JPA mapping)
 * PostgreSQL (dev), Dev Services PostgreSQL (tests)
-* OpenAPI/Swagger UI, Health checks, Metrics
+* OpenAPI/Swagger UI, Health checks
 
 ---
 

@@ -1,9 +1,9 @@
-package com.rindus.interview.infrastructure.repository.persistance.mapper;
+package com.rindus.interview.infrastructure.repository.persistence.mapper;
 
 import com.rindus.interview.domain.aggregate.User;
 import com.rindus.interview.domain.valueobject.Email;
 import com.rindus.interview.domain.valueobject.UserId;
-import com.rindus.interview.infrastructure.repository.persistance.entity.UserEntity;
+import com.rindus.interview.infrastructure.repository.persistence.entity.UserEntity;
 import java.util.UUID;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
