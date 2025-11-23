@@ -7,7 +7,6 @@ import com.rindus.interview.application.usecase.GetUserUseCase;
 import com.rindus.interview.infrastructure.entrypoint.rest.dto.request.CreateUserPayload;
 import com.rindus.interview.infrastructure.entrypoint.rest.dto.response.UserResponseDto;
 import com.rindus.interview.infrastructure.entrypoint.rest.exception.ErrorResponseSchema;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -15,8 +14,6 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
-import java.net.URI;
-import java.util.UUID;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -24,12 +21,14 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.jboss.logging.Logger;
 
+import java.net.URI;
+import java.util.UUID;
+
 /** REST resource for managing Users. */
 @Path("/users")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Tag(name = "Users", description = "Operations related to user management")
-@ApplicationScoped
 public class UsersResource {
 
   private static final Logger LOG = Logger.getLogger(UsersResource.class);
