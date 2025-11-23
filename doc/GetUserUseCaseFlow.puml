@@ -1,0 +1,25 @@
+@startuml
+title GetUserUseCase Flow
+
+skinparam monochrome true
+
+actor Resource
+participant "GetUserUseCase" as UseCase
+participant "UserRepository" as Repo
+
+activate Resource
+Resource -> UseCase : execute(id: UUID)
+activate UseCase
+UseCase -> Repo : findById(userId)
+activate Repo
+Repo --> UseCase : Optional<User>
+deactivate Repo
+
+alt user present
+  UseCase --> Resource : Optional.of(result)
+else user absent
+  UseCase --> Resource : Optional.empty
+end
+
+deactivate UseCase
+@enduml

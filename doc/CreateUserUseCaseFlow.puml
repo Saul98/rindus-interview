@@ -1,0 +1,33 @@
+@startuml
+title CreateUserUseCase Flow
+
+skinparam monochrome true
+
+actor Resource
+participant "CreateUserUseCase" as UseCase
+participant "UserRepository" as Repo
+
+activate Resource
+Resource -> UseCase : execute(cmd: CreateUserCommand)
+activate UseCase
+
+UseCase -> UseCase : user = User.create(cmd.name, cmd.email)
+UseCase -> Repo : existsByEmail(user.email)
+activate Repo
+Repo --> UseCase : boolean exists
+deactivate Repo
+
+alt email exists
+  UseCase --> Resource : throws UserAlreadyExistsException
+  deactivate UseCase
+else email not exists
+  UseCase -> Repo : save(user)
+  activate UseCase
+  activate Repo
+  Repo --> UseCase : saved
+  deactivate Repo
+  UseCase --> Resource : CreateUserResult(saved.id, saved.name, saved.email)
+  deactivate UseCase
+end
+
+@enduml
